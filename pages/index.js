@@ -1,14 +1,15 @@
+import Gallery from "@/components/Gallery";
 import React, { useState } from "react";
-import Create from "@/components/Create";
-import Show from "@/components/Show";
-const index = () => {
-    const [tasks, setTasks] = useState([]);
 
+const index = () => {
+    const [show, setShow] = useState(false);
     return (
         <div className="container mt-5 p-5 bg-light">
-            <Create tasks={tasks} setTasks={setTasks} />
+            <button onClick={() => setShow(!show)} className="btn btn-dark">
+                {show ? "Hide" : "Show"}
+            </button>
             <hr />
-            <Show tasks={tasks} setTasks={setTasks} />
+            {show && <Gallery />}
         </div>
     );
 };
