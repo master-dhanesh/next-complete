@@ -2,7 +2,7 @@ import Gallery from "@/components/Gallery";
 import React, { useState } from "react";
 
 const index = () => {
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(true);
     return (
         <div className="container mt-5 p-5 bg-light">
             <button onClick={() => setShow(!show)} className="btn btn-dark">

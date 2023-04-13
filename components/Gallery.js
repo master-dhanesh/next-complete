@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import Link from "next/link";
+import { ImageContext } from "../Context/Context";
+
 const Gallery = () => {
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useContext(ImageContext);
+    // const [images, setImages] = useState([]);
     const [pagecount, setpagecount] = useState(1);
     const GetImages = async () => {
         const strimages = await fetch(
@@ -21,7 +25,9 @@ const Gallery = () => {
                     ? images.map((i) => (
                           <li key={i.id} className="list-group-item">
                               <img src={i.download_url} height={100} />
-                              <span className="ms-3">{i.author}</span>
+                              <Link href={`/gallery/${i.id}`} className="ms-3">
+                                  {i.author}
+                              </Link>
                           </li>
                       ))
                     : "Loading..."}
