@@ -1,10 +1,28 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { nanoid } from "nanoid";
 
 const Create = (props) => {
     const { tasks, setTasks } = props;
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
+    const [isError, setIsError] = useState(false);
+    const titleName = useRef(null);
+
+    const validateTitle = (e) => {
+        if (titleName.current.value.length === 0) {
+            setIsError(false);
+            setTitle(e.target.value);
+            return;
+        }
+
+        //
+        if (titleName.current.value.length > 4) {
+            setIsError(false);
+        } else {
+            setIsError(true);
+        }
+        setTitle(e.target.value);
+    };
 
     const SubmitHandler = (e) => {
         e.preventDefault();
@@ -26,11 +44,15 @@ const Create = (props) => {
                 className="form-control mb-3"
                 placeholder="Title"
                 type="text"
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={validateTitle}
                 value={title}
+                ref={titleName}
             />
+            <small className="text-danger">
+                {isError && "Title not valid"}
+            </small>
             <input
-                className="form-control mb-3"
+                className="form-control my-3"
                 placeholder="Description"
                 type="text"
                 onChange={(e) => setDesc(e.target.value)}
